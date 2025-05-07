@@ -1,5 +1,3 @@
-import java.util.stream.Stream;
-
 public class Employee {
 
     private String name;

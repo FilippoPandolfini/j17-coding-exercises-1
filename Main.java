@@ -10,6 +10,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
+import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 import java.util.List;
@@ -173,7 +176,16 @@ public class Main {
         employees.add(new Employee("Topolino", "Stagist", 12000));
         employees.add(new Employee("Paperino", "CEO", 253000));
         employees.add(new Employee("Paperone", "Finance", 50000));
+        employees.add(new Employee("Topo Gigio", "HR", 33000));
 
+        Map<String, List<Employee>> groupedByDept = employees.stream().collect(EmployeeCollectors.groupByDepartment());
+        System.out.println(groupedByDept);
+
+        Map<Double, List<Employee>> groupedBySal = employees.stream().collect(EmployeeCollectors.groupBySalary());
+        System.out.println(groupedBySal);
+
+        SalaryStats stats = employees.stream().collect(EmployeeCollectors.minMaxSalaryCollector());
+        System.out.println(stats);
     }
 
 
@@ -184,5 +196,6 @@ public class Main {
         // groupingAndPartioning();
         // flatMapNested();
         // readingProcessingWithStreams();
+        customCollector();
     }
 }
