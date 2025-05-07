@@ -1,8 +1,19 @@
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.rtf.RTFEditorKit;
 import javax.xml.namespace.QName;
+import java.io.IO;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Arrays;
+import java.util.List;
+import static java.awt.SystemColor.*;
 
 public class Main {
 
@@ -128,12 +139,50 @@ public class Main {
         System.out.println("Lista flattata: " + listaFlat);
     }
 
-    public static void main(String[] args) {
+    public static void readingProcessingWithStreams() {
+
+        Path path = Path.of("/Users/filippopandolfini/Desktop/Testodaleggere.rtf");
+        String text = "";
+
+        try (InputStream input = Files.newInputStream(path)) {
+            RTFEditorKit rtfParser = new RTFEditorKit();
+            Document doc = rtfParser.createDefaultDocument();
+            rtfParser.read(input, doc, 0);
+            text = doc.getText(0, doc.getLength());
+            System.out.println(text);
+        } catch (IOException | BadLocationException e) {
+            e.printStackTrace();
+        }
+
+        List<String> parole = Arrays.asList(text.trim().split("\\s+"));
+        System.out.println("Trim split di parole: " + parole);
+
+        List<String> listaFlat = parole.stream().sorted().toList();
+        System.out.println("Lista flattata: " + listaFlat);
+
+        List<String> listaFiltro = parole.stream().filter(s -> s.length() <= 3).toList();
+        System.out.println("Lista filtrata: " + listaFiltro);
+    }
+
+    public static void customCollector() {
+
+        List<Employee> employees = new ArrayList<>();
+
+        employees.add(new Employee("Pippo", "HR", 21000));
+        employees.add(new Employee("Pluto", "Finance", 33000));
+        employees.add(new Employee("Topolino", "Stagist", 12000));
+        employees.add(new Employee("Paperino", "CEO", 253000));
+        employees.add(new Employee("Paperone", "Finance", 50000));
+
+    }
+
+
+    public static void main(String[] args) throws IOException {
         // basicFilteringAndMapping();
         // summmationAndReduction();
         // collectingIntoDifferentDataStructure();
         // groupingAndPartioning();
-        flatMapNested();
+        // flatMapNested();
+        // readingProcessingWithStreams();
     }
-
 }
