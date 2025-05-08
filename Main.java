@@ -188,6 +188,21 @@ public class Main {
         System.out.println(stats);
     }
 
+    public static void parallelStreams() {
+
+        List<Integer> numeri = new Random().ints(50, 0, 500)
+                .boxed()
+                .collect(Collectors.toList());
+
+        Map<Boolean, List<Integer>> partizionati = numeri.parallelStream().collect(Collectors.partitioningBy(n -> n%2 == 0));
+
+        List<Integer> pari = partizionati.get(true);
+        List<Integer> dispari = partizionati.get(false);
+
+        System.out.println("Numeri pari: " + pari);
+        System.out.println("Numeri dispari: " + dispari);
+    }
+
 
     public static void main(String[] args) throws IOException {
         // basicFilteringAndMapping();
@@ -196,6 +211,7 @@ public class Main {
         // groupingAndPartioning();
         // flatMapNested();
         // readingProcessingWithStreams();
-        customCollector();
+        // customCollector();
+        parallelStreams();
     }
 }
