@@ -1,3 +1,5 @@
+package eserciziFil;
+
 public class SalaryStats {
 
     private double minSalary = Double.POSITIVE_INFINITY;

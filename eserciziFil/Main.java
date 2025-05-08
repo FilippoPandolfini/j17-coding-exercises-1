@@ -1,22 +1,16 @@
-import javax.swing.*;
+package eserciziFil;
+
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
-import javax.xml.namespace.QName;
-import java.io.IO;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BinaryOperator;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 import java.util.Arrays;
 import java.util.List;
-import static java.awt.SystemColor.*;
 
 public class Main {
 
